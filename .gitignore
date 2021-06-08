@@ -1,0 +1,15 @@
+# Emacs
+*~
+
+# Editor
+.editorconfig
+
+*.retry
+
+# Custom Editor
+.idea
+.vscode
+.history
+*\~
+.*\~
+tags

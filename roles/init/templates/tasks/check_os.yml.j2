@@ -1,0 +1,22 @@
+---
+- name: check_os | check compatibility
+  fail:
+    msg: Your OS {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported
+  when:
+    - (ansible_distribution != 'Debian' and ansible_distribution_major_version|int != 10) and
+      (ansible_distribution != 'CentOS' and ansible_distribution_major_version|int != 7) and
+      (ansible_system == 'Win32NT' and ansible_distribution_major_version|int < 6)
+
+- name: check_os | setup python3 interpreter
+  set_fact:
+    ansible_python_interpreter: /usr/bin/python3
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_distribution_major_version|int == 10
+
+- name: check_os | setup python2 interpreter
+  set_fact:
+    ansible_python_interpreter: /usr/bin/python
+  when:
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version|int == 7

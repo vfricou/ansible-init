@@ -1,0 +1,11 @@
+---
+- name: deploy_dotfiles | create default .gitignore file
+  template:
+    src: gitignore.j2
+    dest: "{{ project_dir }}/.gitignore"
+
+- name: deploy_dotfiles | create .editorconfig file
+  template:
+    src: editorconfig.j2
+    dest: "{{ project_dir }}/.editorconfig"
+

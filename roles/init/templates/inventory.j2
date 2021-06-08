@@ -1,0 +1,10 @@
+{% for role in roles %}
+all:
+  children:
+    {{ role }}:
+      hosts:
+        localhost:
+  vars:
+    ansible_user: 'root'
+    ansible_python_interpreter: /usr/bin/python3
+{% endfor %}

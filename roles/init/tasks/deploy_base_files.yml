@@ -1,0 +1,47 @@
+---
+- name: deploy_base_files | deploy meta main.yml
+  template:
+    src: "{{ item[1] }}.j2"
+    dest: "{{ project_dir }}/roles/{{ item[0] }}/{{ item[1] }}/main.yml"
+  with_nested:
+    - "{{ roles }}"
+    - [ 'meta' ]
+    - "{{ roles_description }}"
+  vars:
+    role: "{{ item[0] }}"
+    role_description: "{{ item[4] }}"
+
+- name: deploy_base_files | create default tasks
+  template:
+    src: "tasks/{{ item[1] }}.yml.j2"
+    dest: "{{ project_dir }}/roles/{{ item[0] }}/tasks/{{ item[1] }}.yml"
+  with_nested:
+    - "{{ roles }}"
+    - [ 'main', 'check_os']
+
+- name: deploy_base_files | create default group_vars example file
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ project_dir }}/group_vars/{{ item }}"
+  with_items:
+    - all
+
+- name: deploy_base_files | create inventory template
+  template:
+    src: inventory.j2
+    dest: "{{ project_dir }}/{{ item }}"
+  with_items:
+    - production
+    - staging
+
+- name: deploy_base_files | create playbook files
+  template:
+    src: role.j2
+    dest: "{{ project_dir }}/{{ item }}.yml"
+  with_items:
+    - "{{ roles }}"
+
+- name: deploy_base_files | create master playbook
+  template:
+    src: master.j2
+    dest: "{{ project_dir }}/master.yml"

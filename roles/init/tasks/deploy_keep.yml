@@ -1,0 +1,14 @@
+---
+- name: deploy_keep | retreive project folders list
+  find:
+    paths: "{{ project_dir }}"
+    file_type: directory
+    recurse: yes
+  register: project_folders
+
+- name: deploy_keep | deploy .gitkeep files
+  copy:
+    dest: "{{ item.path }}/.gitkeep"
+    content: ''
+  with_items:
+    - "{{ project_folders.files }}"

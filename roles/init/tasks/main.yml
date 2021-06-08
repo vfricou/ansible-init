@@ -1,0 +1,5 @@
+---
+# @var roles # Specify roles to create
+# @var author # Specify roles author name
+# @var galaxy_namespace # Specify roles galaxy namespace
+# @var role_description # Specify roles description

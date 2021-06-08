@@ -1,0 +1,17 @@
+---
+- name: create_structure | create first level folders
+  file:
+    path: "{{ project_dir }}/{{ item }}"
+    state: directory
+  with_items:
+    - group_vars
+    - host_vars
+    - roles
+
+- name: create_structure | create roles structure
+  file:
+    path: "{{ project_dir }}/roles/{{ item[0] }}/{{ item[1] }}"
+    state: directory
+  with_items:
+    - "{{ roles }}"
+    - [ 'defaults', 'files', 'handlers', 'meta', 'tasks', 'templates', 'vars' ]
