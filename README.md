@@ -11,6 +11,21 @@ The playbook sets up the common ansible project structure described in the [ansi
 
 Use either of the methods below to set up a local directory and file structure ready for `ansible-playbook` use. All that's needed is to modify the inventory, then add tasks, handlers, files and templates.
 
+```
+$ ./create_playbook.sh
+ Role author ? Givenname Surname
+ Role galaxy namespace ? namespace
+ Path to ansible playbook project ? /tmp/ansible-project
+ Role name to create ? web
+ Role description ? Web server installation and configuration
+ Would you create another role ? (y/n) y
+ Role name to create ? database
+ Role description ? Database engine installation
+ Would you create another role ? (y/n) n
+```
+
+or directly with `ansible-playbook` with extra-vars
+
 ```shell
 ansible-playbook \
     init.yml \
@@ -63,12 +78,10 @@ Default project JSON file:
 }
 ```
 
-**roles:** array of roles that should be created
+**roles:** array of key value array with role name and description
 
 **project_dir:** the directory in which to create the ansible project
 
-**roles_description:** array of roles description that should be created
-
 **author**: your name
 
-**namespace**: galaxy namespaces identifier
+**galaxy_namespace**: galaxy namespaces identifier
