@@ -1,0 +1,14 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: molecule_php_fpm_instance
+    dockerfile: Dockerfile.j2
+    image: debian:10-systemd
+    command: /sbin/init
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

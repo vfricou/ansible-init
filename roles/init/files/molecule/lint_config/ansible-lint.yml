@@ -1,0 +1,5 @@
+---
+exclude_paths:
+  - ./molecule/lint_config/*
+skip_list:
+  - yaml

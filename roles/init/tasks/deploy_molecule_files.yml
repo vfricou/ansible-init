@@ -1,0 +1,40 @@
+---
+- name: deploy_molecule_files | create folder structure
+  file:
+    path: "{{ project_dir }}/roles/{{ item[0]['name'] }}/molecule/{{ item[1] }}"
+    state: directory
+  with_nested:
+    - "{{ roles }}"
+    - [ 'default', 'systemd', 'lint_config' ]
+
+- name: deploy_molecule_files | deploy molecule templates
+  template:
+    src: "molecule/{{ item[1]}}/{{ item[2] }}.j2"
+    dest: "{{ project_dir }}/roles/{{ item[0]['name'] }}/molecule/{{ item[1] }}/{{ item[2] }}"
+  with_nested:
+    - "{{ roles }}"
+    - [ 'default', 'systemd' ]
+    - [ 'converge.yml', 'verify.yml' ]
+  vars:
+    role: "{{ item[0]['name'] }}"
+
+- name: deploy_molecule_files | deploy molecule static files
+  copy:
+    src: "molecule/{{ item[1] }}/{{ item[2] }}"
+    dest: "{{ project_dir }}/roles/{{ item[0]['name'] }}/molecule/{{ item[1] }}/{{ item[2] }}"
+  with_nested:
+    - "{{ roles }}"
+    - [ 'default', 'systemd' ]
+    - [ 'Dockerfile.j2', 'molecule.yml' ]
+  vars:
+    role: "{{ item[0]['name'] }}"
+
+- name: deploy_molecule_files | deploy molecule lint config
+  copy:
+    src: "molecule/lint_config/{{ item[1] }}"
+    dest: "{{ project_dir }}/roles/{{ item[0]['name'] }}/molecule/lint_config/{{ item[1] }}"
+  with_nested:
+    - "{{ roles }}"
+    - [ 'config.yml', 'ansible-lint.yml' ]
+  vars:
+    role: "{{ item[0]['name'] }}"
