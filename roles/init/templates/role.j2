@@ -1,4 +1,4 @@
 ---
-- hosts: {{ item }}
+- hosts: {{ item['name'] }}
   roles:
-    - { role: {{ item }} }
+    - { role: {{ item['name'] }} }

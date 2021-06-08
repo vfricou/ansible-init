@@ -2,19 +2,18 @@
 - name: deploy_base_files | deploy meta main.yml
   template:
     src: "{{ item[1] }}.j2"
-    dest: "{{ project_dir }}/roles/{{ item[0] }}/{{ item[1] }}/main.yml"
+    dest: "{{ project_dir }}/roles/{{ item[0]['name'] }}/{{ item[1] }}/main.yml"
   with_nested:
     - "{{ roles }}"
     - [ 'meta' ]
-    - "{{ roles_description }}"
   vars:
-    role: "{{ item[0] }}"
-    role_description: "{{ item[4] }}"
+    role: "{{ item[0]['name'] }}"
+    role_description: "{{ item[0]['description'] }}"
 
 - name: deploy_base_files | create default tasks
   template:
     src: "tasks/{{ item[1] }}.yml.j2"
-    dest: "{{ project_dir }}/roles/{{ item[0] }}/tasks/{{ item[1] }}.yml"
+    dest: "{{ project_dir }}/roles/{{ item[0]['name'] }}/tasks/{{ item[1] }}.yml"
   with_nested:
     - "{{ roles }}"
     - [ 'main', 'check_os']
@@ -37,7 +36,7 @@
 - name: deploy_base_files | create playbook files
   template:
     src: role.j2
-    dest: "{{ project_dir }}/{{ item }}.yml"
+    dest: "{{ project_dir }}/{{ item['name'] }}.yml"
   with_items:
     - "{{ roles }}"
 

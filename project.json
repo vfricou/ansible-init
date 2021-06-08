@@ -1,13 +1,15 @@
 {
   "roles": [
-    "web",
-    "database"
+    {
+      "name": "web",
+      "description": "Web server installation and configuration"
+    },
+    {
+      "name": "database",
+      "description": "Database engine installation"
+    }
   ],
   "project_dir": "/tmp/ansible-project",
-  "roles_description": [
-    "Web server installation and configuration",
-    "Database engine installation"
-  ],
   "author": "Givenname Surname",
   "galaxy_namespace": "namespace"
 }

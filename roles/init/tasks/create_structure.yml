@@ -10,8 +10,8 @@
 
 - name: create_structure | create roles structure
   file:
-    path: "{{ project_dir }}/roles/{{ item[0] }}/{{ item[1] }}"
+    path: "{{ project_dir }}/roles/{{ item[0]['name'] }}/{{ item[1] }}"
     state: directory
-  with_items:
+  with_nested:
     - "{{ roles }}"
     - [ 'defaults', 'files', 'handlers', 'meta', 'tasks', 'templates', 'vars' ]

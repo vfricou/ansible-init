@@ -2,5 +2,5 @@
 # master playbook
 
 {% for role in roles %}
-- include: {{ role }}.yml
+- include: {{ role['name'] }}.yml
 {% endfor %}

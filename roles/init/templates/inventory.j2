@@ -1,7 +1,7 @@
 {% for role in roles %}
 all:
   children:
-    {{ role }}:
+    {{ role['name'] }}:
       hosts:
         localhost:
   vars:

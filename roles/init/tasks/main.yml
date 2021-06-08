@@ -3,3 +3,9 @@
 # @var author # Specify roles author name
 # @var galaxy_namespace # Specify roles galaxy namespace
 # @var role_description # Specify roles description
+
+- import_tasks: create_project.yml
+- import_tasks: create_structure.yml
+- import_tasks: deploy_keep.yml
+- import_tasks: deploy_dotfiles.yml
+- import_tasks: deploy_base_files.yml

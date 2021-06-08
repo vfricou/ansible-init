@@ -1,6 +1,6 @@
 # Ansible init
 
-Inspired from [work](https://github.com/davestern/ansible-init) of [Dave Stern](https://github.com/davestern).
+Inspired from the great [work](https://github.com/davestern/ansible-init) of [Dave Stern](https://github.com/davestern).
 
 Ansible playbook to initialize ansible playbook structure with multiples roles and base examples.
 
@@ -11,33 +11,53 @@ The playbook sets up the common ansible project structure described in the [ansi
 
 Use either of the methods below to set up a local directory and file structure ready for `ansible-playbook` use. All that's needed is to modify the inventory, then add tasks, handlers, files and templates.
 
-    ansible-playbook \
+```shell
+ansible-playbook \
     init.yml \
     -i production \
     --connection=local \
-    --extra-vars='{"roles": ["web", "database"], "project_dir": "/tmp/ansible-project", "roles_description": ["Web server installation and configuration", "Database engine installation"]}'
+    --extra-vars='{"roles": 
+      [
+        { 
+          "name": "web",
+          "description": "Web server installation and configuration"
+        },
+        {
+          "name": "database",
+          "description": "Database engine installation"
+        }
+      ],
+      "project_dir": "/tmp/ansible-project",
+      "author": "Givenname Surname",
+      "galaxy_namespace": "namespace"
+    }'
+```
 
 or using a JSON file with variables:
 
-    ansible-playbook \
+```shell
+ansible-playbook \
     init.yml \
     -i production \
     --connection=local \
     --extra-vars='@project.json'
+```
 
 Default project JSON file:
 
 ```json
 {
   "roles": [
-    "web",
-    "database"
+    {
+      "name": "web",
+      "description": "Web server installation and configuration"
+    },
+    {
+      "name": "database",
+      "description": "Database engine installation"
+    }
   ],
   "project_dir": "/tmp/ansible-project",
-  "roles_description": [
-    "Web server installation and configuration",
-    "Database engine installation"
-  ],
   "author": "Givenname Surname",
   "galaxy_namespace": "namespace"
 }
