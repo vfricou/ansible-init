@@ -1,15 +1,12 @@
-# Emacs
-*~
+# Ignore IDE files and folder
+/.idea
+/.vscode
+/.history
+/*\~
+/.*\~
+/tags
 
-# Editor
-.editorconfig
-
+# Ignore dynamically created files or folders
+.cache
 *.retry
 
-# Custom Editor
-.idea
-.vscode
-.history
-*\~
-.*\~
-tags
